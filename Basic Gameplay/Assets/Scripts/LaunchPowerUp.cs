@@ -6,6 +6,8 @@ public class LaunchPowerUp : MonoBehaviour
 {
     public float launchForce = 100f;
 
+    public ParticleSystem collectedBomb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,10 @@ public class LaunchPowerUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            ParticleSystem effect = Instantiate(collectedBomb, transform.position, transform.rotation);
+            effect.Play();
+            
+
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
             foreach (GameObject enemy in enemies)
