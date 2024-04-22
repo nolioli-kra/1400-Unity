@@ -9,6 +9,8 @@ public class EnemyMove : MonoBehaviour
 
     private Rigidbody enemyRb;
 
+    public float passPlayer = -14.8f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,11 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         enemyRb.velocity = enemyDirection.normalized * enemySpeed;
+
+        if (transform.position.z <= passPlayer)
+        {
+            Debug.Log("Game Over");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
