@@ -12,7 +12,14 @@ public class PlayerController : MonoBehaviour
 
     public GameObject laserPrefab;
     public Transform firePoint;
-    [SerializeField] float fireRate = 0.5f;
+    [SerializeField] float fireRate;
+
+    public float defaultFireRate = 0.3f;
+    public float rapidFireRate = 0.15f;
+
+    public float rapidFireDuration = 5f;
+    private bool isRapidFireActive = false;
+    private float timeSincePowerup = 0f;
     private float canFire = -1f;
 
     // Start is called before the first frame update
@@ -24,27 +31,64 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        Movement();
 
-        //calc velocity
-        Vector3 instantTurn = new Vector3 (horizontalInput, 0, verticalInput) * playerSpeed;
-        //instantly apply direction
-        playerRb.velocity = instantTurn;
-
-        //calc movement
-        Vector3 playerMovement = new Vector3 (horizontalInput, 0, verticalInput) * playerSpeed * Time.deltaTime;
-
-        //apply movement to rb
-        playerRb.MovePosition(playerRb.position + playerMovement);
+        //check if powerup is active
+        if (isRapidFireActive)
+        {
+            timeSincePowerup += Time.deltaTime;
+            DisablePowerup();
+        }
 
         //fire lasers
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > canFire)
         {
-            Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
-
-            canFire = Time.time + fireRate;
+            FireLaser();
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pepper"))
+        {
+            //activate powerup
+            isRapidFireActive = true;
+            timeSincePowerup = 0f;
+            fireRate = rapidFireRate;
+        }
+    }
+
+    private void FireLaser()
+    {
+        Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
+
+        canFire = Time.time + fireRate;
+    }
+
+    private void DisablePowerup()
+    {
+        if (timeSincePowerup >= rapidFireDuration)
+        {
+            isRapidFireActive = false;
+            fireRate = defaultFireRate;
+        }
+    }
+
+    private void Movement()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        //calc velocity
+        Vector3 instantTurn = new Vector3(horizontalInput, 0, verticalInput) * playerSpeed;
+        //instantly apply direction
+        playerRb.velocity = instantTurn;
+
+        //calc movement
+        Vector3 playerMovement = new Vector3(horizontalInput, 0, verticalInput) * playerSpeed * Time.deltaTime;
+
+        //apply movement to rb
+        playerRb.MovePosition(playerRb.position + playerMovement);
     }
 }
