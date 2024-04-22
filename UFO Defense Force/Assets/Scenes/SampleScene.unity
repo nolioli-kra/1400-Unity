@@ -348,9 +348,9 @@ MonoBehaviour:
   laserPrefab: {fileID: 1963255052102344890, guid: 51844339fb31c964a94cb0f44114c9af, type: 3}
   firePoint: {fileID: 1437852623}
   fireRate: 0.5
-  defaultFireRate: 0.3
+  defaultFireRate: 0.5
   rapidFireRate: 0
-  rapidFireDuration: 5
+  rapidFireDuration: 3
 --- !u!65 &1155096846
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -742,7 +742,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 5039138034206973638, guid: bbf0bf258fe195d4ebe9e23997f51863, type: 3}
   - {fileID: 109820509259157187, guid: c5ef4d9a8469c2944a59f5a495d79298, type: 3}
-  spawnInterval: 3
+  spawnInterval: 2
   spawnRangeX: 18
 --- !u!4 &1916253370
 Transform:

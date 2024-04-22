@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
         float spawnX = Random.Range(-spawnRangeX, spawnRangeX);
 
         //instantiate
-        Vector3 spawnPosition = new Vector3(spawnX, transform.position.y, 13);
+        Vector3 spawnPosition = new Vector3(spawnX, 0.5f, 13);
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }
