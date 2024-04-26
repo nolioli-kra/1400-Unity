@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -9,6 +12,9 @@ public class SpawnManager : MonoBehaviour
     public float spawnRangeX;
 
     private float nextSpawnTime = 0f;
+
+    public TextMeshProUGUI scoreText;
+    public int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -38,5 +44,11 @@ public class SpawnManager : MonoBehaviour
         //instantiate
         Vector3 spawnPosition = new Vector3(spawnX, 0.5f, 13);
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    }
+
+    public void UpdateScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score;
     }
 }

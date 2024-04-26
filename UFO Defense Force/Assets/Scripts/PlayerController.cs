@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private float timeSincePowerup = 0f;
     private float canFire = -1f;
 
+    public GameManager manager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,20 +33,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
-
-        //check if powerup is active
-        if (isRapidFireActive)
+        if (manager.isGameActive == true)
         {
-            timeSincePowerup += Time.deltaTime;
-            DisablePowerup();
-        }
+            Movement();
 
-        //fire lasers
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > canFire)
-        {
-            FireLaser();
-        }
+            //check if powerup is active
+            if (isRapidFireActive)
+            {
+                timeSincePowerup += Time.deltaTime;
+                DisablePowerup();
+            }
+
+            //fire lasers
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time > canFire)
+            {
+                FireLaser();
+            }
+        } 
 
     }
 

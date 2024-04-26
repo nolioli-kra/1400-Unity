@@ -10,6 +10,9 @@ public class EnemyMove : MonoBehaviour
     private Rigidbody enemyRb;
 
     public float passPlayer = -14.8f;
+    public GameObject spawnManager;
+
+    public int killValue = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +35,19 @@ public class EnemyMove : MonoBehaviour
         if (other.CompareTag("Laser"))
         {
             Destroy(gameObject);
+
+            SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
+
+            if (spawnManager != null)
+            {
+                spawnManager.UpdateScore(killValue);
+            }
+            else
+            {
+                Debug.LogWarning("Spawn manager not found");
+            }
         }
+        
     }
    
 }
