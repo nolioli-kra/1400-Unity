@@ -14,6 +14,7 @@ public class EnemyMove : MonoBehaviour
 
     public int killValue = 10;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +35,6 @@ public class EnemyMove : MonoBehaviour
     {
         if (other.CompareTag("Laser"))
         {
-            Destroy(gameObject);
-
             SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
 
             if (spawnManager != null)
@@ -46,8 +45,8 @@ public class EnemyMove : MonoBehaviour
             {
                 Debug.LogWarning("Spawn manager not found");
             }
+
+            Destroy(gameObject);
         }
-        
     }
-   
 }
