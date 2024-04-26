@@ -24,10 +24,15 @@ public class PlayerController : MonoBehaviour
 
     public GameManager manager;
 
+    private AudioSource playerAudio;
+    public AudioClip laserSound;
+    public AudioClip pepperSound;
+
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -61,6 +66,8 @@ public class PlayerController : MonoBehaviour
             isRapidFireActive = true;
             timeSincePowerup = 0f;
             fireRate = rapidFireRate;
+
+            playerAudio.PlayOneShot(pepperSound, 1.0f);
         }
     }
 
@@ -69,6 +76,8 @@ public class PlayerController : MonoBehaviour
         Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
 
         canFire = Time.time + fireRate;
+
+        playerAudio.PlayOneShot(laserSound, 1.0f);
     }
 
     private void DisablePowerup()
